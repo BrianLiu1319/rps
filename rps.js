@@ -17,58 +17,114 @@ function getComputerChoice() {
     return ret;
 }
 
-function getHumanChoice(){
-    let humanChoice = prompt("Rock Paper or Scissors?")
-    return humanChoice
-}
 
-function playRound(humanChoice, computerChoice){
+
+function playRound(humanChoice, computerChoice, output_log){
     humanChoice = humanChoice.toLowerCase();
 
     if (humanChoice == "scissors"){
         if (computerChoice == "rock"){
-            console.log("you lost, rock beats paper ")
+            // console.log("you lost, rock beats paper ")
+            output_log.textContent = "you lost, rock beats paper ";
             computerScore++;
         }
         else if (computerChoice == "paper"){
-            console.log("you win, scissors beats paper ")
+            output_log.textContent = "you lost, rock beats paper ";
+
+            // console.log("you win, scissors beats paper ")
             humanScore++;
         }
     }
     else if (humanChoice == "paper"){
         if (computerChoice == "rock"){
-            console.log("you win, paper beats rock ")
+            output_log.textContent = "you lost, rock beats paper ";
+
+            // console.log("you win, paper beats rock ")
             humanScore++;
         }
         else if (computerChoice == "scissors"){
-            console.log("you lose, scissors beats paper ")
+            output_log.textContent = "you lost, rock beats paper ";
+
+            // console.log("you lose, scissors beats paper ")
             computerScore++;
         }
     }
     else{
         if (computerChoice == "paper"){
-            console.log("you lose, paper beats rock ")
+            output_log.textContent = "you lost, rock beats paper ";
+
+            // console.log("you lose, paper beats rock ")
             computerScore++;
         }
         else if (computerChoice == "scissors"){
-            console.log("you win, rock beats scissors")
+            output_log.textContent = "you lost, rock beats paper ";
+
+            // console.log("you win, rock beats scissors")
             humanScore++;
         }
     }
 
 }
 
+
+
 var humanScore = 0;
 var computerScore = 0;
 
+const button_refs = document.querySelectorAll("button");
 
-for (var i = 0; i < 5 ; i ++){
-    var humanSelection = getHumanChoice();
-    var computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    console.log("human score: " + humanScore);
-    console.log("computer score: " + computerScore);
-}
+const new_div = document.createElement("div");
+const human_score = document.createElement("div");
+const computer_score = document.createElement("div");
+const output_log = document.createElement("div");
+
+
+human_score.textContent = "humanScore : " + humanScore;
+computer_score.textContent = "computerScore : " + computerScore;
+
+
+new_div.appendChild(human_score);
+new_div.appendChild(computer_score);
+
+const div_query = document.querySelector("div");
+div_query.appendChild(new_div);
+
+button_refs.forEach((button) => {
+    button.addEventListener("click", () => {
+        let humanSelection = button.innerText;
+        let computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection, output_log);
+
+        new_div.appendChild(output_log);
+
+        human_score.textContent = "humanScore : " + humanScore;
+        computer_score.textContent = "computerScore : " + computerScore;
+
+    });
+});
+// button_refs.addEventListener("click", () => {
+//     var humanSelection = button_ref.value;
+//     console.log(humanSelection);
+
+// });
+
+
+
+
+
+
+
+
+
+// var humanSelection = getHumanChoice();
+
+
+// playRound(humanSelection, computerSelection);
+// console.log("human score: " + humanScore);
+// console.log("computer score: " + computerScore);
+
+
+
 
 
 
